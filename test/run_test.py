@@ -72,8 +72,10 @@ if __name__ == '__main__':
     a_result = acceptance_test(sys.argv[1:])
     if u_result.errors or u_result.failures:
         print('Unit tests failed')
-        print('errors: ', u_result.errors)
-        print('failures: ', u_result.failures)
+        print('errors: {}'.format(u_result.errors), 
+            file=open(os.path.join(env.RESULTS_DIR,"unittest_erros.log"), "a"))
+        print('failures: {}'.format(u_result.failures), 
+            file=open(os.path.join(env.RESULTS_DIR,"unittest_failures.log"), "a"))
         _exit(u_result.errors)
     elif a_result != 0:
         print('Acceptance tests failed')
