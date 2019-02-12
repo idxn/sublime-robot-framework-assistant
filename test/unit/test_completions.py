@@ -156,7 +156,7 @@ class TestCompletions(unittest.TestCase):
         self.assertEqual(completion, expected)
         # kw not args
         kw = 'Unselect Frame'
-        lib = 'Selenium2Library'
+        lib = 'SeleniumLibrary'
         completion = create_kw_completion_item(kw, [], RF_CELL, lib, False)
         trigger = '{0}\t{1}'.format(kw, lib)
         expected = (trigger, kw)
@@ -175,7 +175,7 @@ class TestCompletions(unittest.TestCase):
         self.assertEqual(completion, expected)
         # kw not args
         kw = 'Unselect Frame'
-        lib = 'Selenium2Library'
+        lib = 'SeleniumLibrary'
         completion = create_kw_completion_item(kw, [], RF_CELL, lib, True)
         trigger = '{0}\t{1}'.format(kw, lib)
         expected = (trigger, kw)

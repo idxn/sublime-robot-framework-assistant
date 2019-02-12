@@ -78,7 +78,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
         self.assertIn(self.s2l_press_key, kw_file)
         kw_file = self.get_kw.get_lib_keyword_file(
             self.s2l_table_file,
-            'Selenium2Library',
+            'SeleniumLibrary',
             'PressKey'
         )
         self.assertIn(self.s2l_press_key, kw_file)
@@ -168,7 +168,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
         if platform.system() == 'Windows':
             return 'selenium2library'
         else:
-            return 'Selenium2Library'
+            return 'SeleniumLibrary'
 
     @property
     def s2l_simulate(self):
@@ -186,7 +186,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
     def s2l_table_file(self):
         return path.join(
             self.db_dir,
-            'Selenium2Library-ac72a5ed5dae4edc06e58114b7c0ce92.json'
+            'SeleniumLibrary-ac72a5ed5dae4edc06e58114b7c0ce92.json'
         )
 
     @property

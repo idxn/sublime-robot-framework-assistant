@@ -300,7 +300,7 @@ class TestIndexing(unittest.TestCase):
         object_name = self.index.get_object_name(self.get_os())
         self.assertEqual(object_name, 'OperatingSystem')
         object_name = self.index.get_object_name(self.get_s2l())
-        self.assertEqual(object_name, 'Selenium2Library')
+        self.assertEqual(object_name, 'SeleniumLibrary')
 
     def test_library_with_alias(self):
         data = self.index.create_index_for_table(self.db_dir,
@@ -369,7 +369,7 @@ class TestIndexing(unittest.TestCase):
 
     @property
     def s2l_table_name(self):
-        return lib_table_name('Selenium2Library')
+        return lib_table_name('SeleniumLibrary')
 
     @property
     def os_table_name(self):
@@ -493,7 +493,7 @@ class TestIndexing(unittest.TestCase):
         s2l_data = self.get_s2l()
         kw_list = self.index.get_keywords(s2l_data)[0]
         arg_list = self.get_kw_args(s2l_data)
-        object_name = 'Selenium2Library'
+        object_name = 'SeleniumLibrary'
         table_name = self.s2l_table_name
         l = []
         for kw, arg in zip(kw_list, arg_list):

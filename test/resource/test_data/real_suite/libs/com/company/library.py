@@ -9,4 +9,4 @@ class CompanyLibrary(object):
 
     def company_keyword_2(self, args):
         print(args)
-        print(BuiltIn().get_library_instance('Selenium2Library'))
+        print(BuiltIn().get_library_instance('SeleniumLibrary'))
