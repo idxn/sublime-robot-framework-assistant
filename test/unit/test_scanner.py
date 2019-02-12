@@ -80,7 +80,7 @@ class TestScanner(unittest.TestCase):
         key = os.path.join(
             self.real_suite,
             'resource',
-            'reosurce2',
+            'resource2',
             'real_suite_resource.robot'
         )
         key = os.path.normcase(key)
