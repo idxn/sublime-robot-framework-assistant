@@ -5,7 +5,7 @@ import shutil
 import re
 from time import sleep
 from data_queue.scanner import Scanner
-from .test_runner_for_scanner import run_process
+from test_runner_for_scanner import run_process
 
 
 class TestRunner(unittest.TestCase):
