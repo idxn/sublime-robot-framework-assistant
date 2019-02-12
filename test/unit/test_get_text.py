@@ -30,6 +30,6 @@ class TestCompletions(unittest.TestCase):
         line = '{1}no{0}Run Keyword And Expect Error'.format(
             '    BuiltIn.', '    SeleniumLibrary.')
         prefix = 'no'
-        column = 23
+        column = 22
         expected = get_object_from_line(line, prefix, column)
         self.assertEqual(expected, 'SeleniumLibrary')
