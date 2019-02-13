@@ -52,16 +52,17 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
         regex, file_path = self.get_kw.get_lib_keyword(
             self.s2l_table_file,
             None,
-            'Simulate'
+            'Simulate Event'
         )
         self.assertIsNotNone(regex)
+        import pdb; pdb.set_trace()  # breakpoint d4f66d13 //
         self.assertIsNotNone(file_path)
 
     def test_get_lib_keyword_file(self):
         kw_file = self.get_kw.get_lib_keyword_file(
             self.s2l_table_file,
             None,
-            'Simulate'
+            'Simulate Event'
         )
         self.assertIn(self.s2l_simulate, kw_file)
         kw_file = self.get_kw.get_lib_keyword_file(
@@ -165,10 +166,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
 
     @property
     def s2l(self):
-        if platform.system() == 'Windows':
-            return 'selenium2library'
-        else:
-            return 'SeleniumLibrary'
+        return 'SeleniumLibrary'
 
     @property
     def s2l_simulate(self):
@@ -186,7 +184,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
     def s2l_table_file(self):
         return path.join(
             self.db_dir,
-            'SeleniumLibrary-ac72a5ed5dae4edc06e58114b7c0ce92.json'
+            'SeleniumLibrary-ed5a6b78e6f238da896f2d5aad33b8b8.json'
         )
 
     @property
