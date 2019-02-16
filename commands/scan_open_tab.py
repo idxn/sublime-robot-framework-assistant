@@ -57,8 +57,8 @@ class ScanOpenTabCommand(sublime_plugin.TextCommand):
 
     def file_in_workspace(self, open_tab):
         workspace = get_setting(SettingObject.workspace)
-        workspace = path.normcase(workspace)
-        open_tab = path.normcase(open_tab)
+        workspace = path.normpath(workspace)
+        open_tab = path.normpath(open_tab)
         extension = get_setting(SettingObject.extension)
         if open_tab.endswith(extension):
             return open_tab.startswith(workspace)

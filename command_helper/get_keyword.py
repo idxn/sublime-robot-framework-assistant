@@ -164,5 +164,5 @@ class GetKeyword(object):
         if version_info.major > 2:
             status = isinstance(str_, str)
         else:
-            status = isinstance(str_, basestring)
+            status = isinstance(str_, str)
         return status

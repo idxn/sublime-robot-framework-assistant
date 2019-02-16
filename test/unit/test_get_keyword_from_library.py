@@ -4,7 +4,7 @@ import shutil
 import platform
 from os import path, mkdir
 from index_runner import index_all
-from queue.scanner import Scanner
+from data_queue.scanner import Scanner
 from get_keyword import GetKeyword
 
 
@@ -52,7 +52,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
         regex, file_path = self.get_kw.get_lib_keyword(
             self.s2l_table_file,
             None,
-            'Simulate'
+            'Simulate Event'
         )
         self.assertIsNotNone(regex)
         self.assertIsNotNone(file_path)
@@ -61,7 +61,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
         kw_file = self.get_kw.get_lib_keyword_file(
             self.s2l_table_file,
             None,
-            'Simulate'
+            'Simulate Event'
         )
         self.assertIn(self.s2l_simulate, kw_file)
         kw_file = self.get_kw.get_lib_keyword_file(
@@ -78,7 +78,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
         self.assertIn(self.s2l_press_key, kw_file)
         kw_file = self.get_kw.get_lib_keyword_file(
             self.s2l_table_file,
-            'Selenium2Library',
+            'SeleniumLibrary',
             'PressKey'
         )
         self.assertIn(self.s2l_press_key, kw_file)
@@ -165,28 +165,25 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
 
     @property
     def s2l(self):
-        if platform.system() == 'Windows':
-            return 'selenium2library'
-        else:
-            return 'Selenium2Library'
+        return 'SeleniumLibrary'
 
     @property
     def s2l_simulate(self):
-        return path.join(self.s2l, 'keywords', '_element.py')
+        return path.join(self.s2l, 'keywords', 'element.py')
 
     @property
     def s2l_press_key(self):
-        return path.join(self.s2l, 'keywords', '_element.py')
+        return path.join(self.s2l, 'keywords', 'element.py')
 
     @property
     def s2l_textarea_value_should_be(self):
-        return path.join(self.s2l, 'keywords', '_formelement.py')
+        return path.join(self.s2l, 'keywords', 'formelement.py')
 
     @property
     def s2l_table_file(self):
         return path.join(
             self.db_dir,
-            'Selenium2Library-ac72a5ed5dae4edc06e58114b7c0ce92.json'
+            'SeleniumLibrary-ed5a6b78e6f238da896f2d5aad33b8b8.json'
         )
 
     @property
@@ -200,7 +197,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
     @property
     def long_name_file(self):
         return path.join(
-            path.normcase(self.suite_dir), 'LibraryWithReallyTooLongName.py'
+            path.normpath(self.suite_dir), 'LibraryWithReallyTooLongName.py'
         )
 
     @property
@@ -210,7 +207,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
     @property
     def get_resource_lib_longer_than_100_chars(self):
         return path.join(
-            path.normcase(self.suite_dir),
+            path.normpath(self.suite_dir),
             (
                 'LibraryNameWhichIsLongerThan100CharactersButItSeemsThatIt'
                 'RequiresQuiteAlotLettersInTheFileNameAndIsNotGoodReal'

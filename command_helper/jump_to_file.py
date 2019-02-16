@@ -34,8 +34,7 @@ class JumpToFile(object):
                 imported_file=imported_lib, open_tab=open_tab
             )
         else:
-            imported_lib_utf8 = imported_lib.encode('utf-8')
-            file_name = lib_table_name(imported_lib_utf8)
+            file_name = lib_table_name(imported_lib)
             file_name = str(file_name)
             file_path = os.path.join(db_dir, file_name)
             data = get_data_from_json(file_path)

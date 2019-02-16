@@ -21,6 +21,7 @@ class DBJsonSetting(object):
     library_path = 'library_path'
     resources = 'resources'
     tags = 'tags'
+    table_type = 'table_type'
     variable = 'variable'
     variable_files = 'variable_files'
     variables = 'variables'
@@ -31,3 +32,5 @@ class DBJsonSetting(object):
     # Import setting types
     variable_file = 'variable_file'
     resource_file = 'resource_file'
+
+    suite = 'suite'

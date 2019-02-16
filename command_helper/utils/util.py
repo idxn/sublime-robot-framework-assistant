@@ -12,7 +12,7 @@ def get_data_from_json(json_file):
 def _keyword_with_embedded_arg(kw, kw_candite):
     kw = kw.lower().replace(' ', '').replace('_', '')
     kw_candite = kw_candite.lower().replace(' ', '').replace('_', '')
-    kw_re = re.sub(r'(?i)(\$\{[\w ]*\})', r'(?i)(\S+)', kw_candite)
+    kw_re = re.sub(r'(?i)(\$\{[\w ]*\})', r'(?i)(\\S+)', kw_candite)
     return re.search(kw_re, kw)
 
 

@@ -3,7 +3,7 @@ import env
 import shutil
 from os import path, makedirs
 from index_runner import index_all
-from queue.scanner import Scanner
+from data_queue.scanner import Scanner
 from parser_utils.file_formatter import rf_table_name, lib_table_name
 from get_documentation import GetKeywordDocumentation
 
@@ -209,19 +209,19 @@ class GetDocumentation(unittest.TestCase):
 
     @property
     def test_a_file(self):
-        return path.normcase(path.join(self.suite_dir, 'test_a.robot'))
+        return path.normpath(path.join(self.suite_dir, 'test_a.robot'))
 
     @property
     def test_b_file(self):
-        return path.normcase(path.join(self.suite_dir, 'test_b.robot'))
+        return path.normpath(path.join(self.suite_dir, 'test_b.robot'))
 
     @property
     def resource_a_table_file(self):
-        return path.normcase(path.join(self.suite_dir, 'resource_a.robot'))
+        return path.normpath(path.join(self.suite_dir, 'resource_a.robot'))
 
     @property
     def resource_b_table_file(self):
-        return path.normcase(path.join(self.suite_dir, 'resource_b.robot'))
+        return path.normpath(path.join(self.suite_dir, 'resource_b.robot'))
 
     @property
     def test_a_table_name(self):

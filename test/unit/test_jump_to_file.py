@@ -4,7 +4,7 @@ import unittest
 
 from index_runner import index_all
 from jump_to_file import JumpToFile
-from queue.scanner import Scanner
+from data_queue.scanner import Scanner
 import env
 
 
@@ -57,15 +57,15 @@ class TestJumpToFile(unittest.TestCase):
         self.assertTrue(status)
 
     def test_is_library(self):
-        line = 'Library          Selenium2Library'
+        line = 'Library          SeleniumLibrary'
         status = self.jump.is_import(line)
         self.assertTrue(status)
 
-        line = '| Library      | Selenium2Library |'
+        line = '| Library      | SeleniumLibrary |'
         status = self.jump.is_import(line)
         self.assertTrue(status)
 
-        line = '| Library | Selenium2Library |'
+        line = '| Library | SeleniumLibrary |'
         status = self.jump.is_import(line)
         self.assertTrue(status)
 

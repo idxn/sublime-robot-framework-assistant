@@ -5,7 +5,7 @@ import shutil
 import hashlib
 from time import sleep
 import json
-from queue.scanner import Scanner
+from data_queue.scanner import Scanner
 
 
 class TestScanner(unittest.TestCase):
@@ -80,21 +80,21 @@ class TestScanner(unittest.TestCase):
         key = os.path.join(
             self.real_suite,
             'resource',
-            'reosurce2',
+            'resource2',
             'real_suite_resource.robot'
         )
-        key = os.path.normcase(key)
+        key = os.path.normpath(key)
         self.assertEqual(
             self.scanner.queue.queue[key],
             {'scanned': True, 'type': None, 'args': None}
         )
 
     def test_add_libraries_queue(self):
-        libs = [{'library_name': u'OperatingSystem',
+        libs = [{'library_name': 'OperatingSystem',
                  'library_alias': None,
                  'library_arguments': None,
                  'library_path': None},
-                {'library_name': u'Process',
+                {'library_name': 'Process',
                  'library_alias': None,
                  'library_arguments': None,
                  'library_path': None}]
@@ -220,30 +220,30 @@ class TestScanner(unittest.TestCase):
         files = os.listdir(self.db_dir)
         builtin = '{0}-{1}.json'.format(
             'BuiltIn',
-            hashlib.md5('BuiltIn').hexdigest())
+            hashlib.md5('BuiltIn'.encode()).hexdigest())
         self.assertTrue(builtin in files)
         init = '{0}-{1}.json'.format(
             '__init__.robot',
             hashlib.md5(
-                os.path.normcase(
-                    os.path.join(workspace, '__init__.robot'))).hexdigest()
+                os.path.normpath(
+                    os.path.join(workspace, '__init__.robot')).encode()).hexdigest()
         )
         self.assertTrue(init in files)
         suite = '{0}-{1}.json'.format(
             'test_with_libs.robot',
             hashlib.md5(
-                os.path.normcase(
+                os.path.normpath(
                     os.path.join(
-                        workspace, 'test_with_libs.robot'))).hexdigest()
+                        workspace, 'test_with_libs.robot')).encode()).hexdigest()
         )
         self.assertTrue(suite in files)
         operatingsystem = '{0}-{1}.json'.format(
             'OperatingSystem',
-            hashlib.md5('OperatingSystem').hexdigest())
+            hashlib.md5('OperatingSystem'.encode()).hexdigest())
         self.assertTrue(operatingsystem in files)
         operatingsystem = '{0}-{1}.json'.format(
             'Process',
-            hashlib.md5('Process').hexdigest())
+            hashlib.md5('Process'.encode()).hexdigest())
         self.assertTrue(operatingsystem in files)
         self.assertEqual(len(files), 6)
 
@@ -258,11 +258,11 @@ class TestScanner(unittest.TestCase):
         files = os.listdir(self.db_dir)
         builtin = '{0}-{1}.json'.format(
             'BuiltIn',
-            hashlib.md5('BuiltIn').hexdigest())
+            hashlib.md5('BuiltIn'.encode()).hexdigest())
         self.assertTrue(builtin in files)
         operatingsystem = '{0}-{1}.json'.format(
             'OperatingSystem',
-            hashlib.md5('OperatingSystem').hexdigest())
+            hashlib.md5('OperatingSystem'.encode()).hexdigest())
         self.assertTrue(operatingsystem in files)
         self.assertEqual(len(files), 14)
 
@@ -324,7 +324,7 @@ class TestScanner(unittest.TestCase):
         resource = os.path.join(
             env.RESOURCES_DIR,
             'test_data',
-            'simple_resrouce2.robot'
+            'simple_resource2.robot'
         )
         return (resource, {'scanned': False, 'type': 'resource', 'args': None})
 
@@ -336,6 +336,6 @@ class TestScanner(unittest.TestCase):
     def f_name(self, data, db_dir):
         file_name = '{realname}-{md5}.json'.format(
             realname=os.path.basename(data['file_path']),
-            md5=hashlib.md5(data['file_path']).hexdigest()
+            md5=hashlib.md5(data['file_path'].encode()).hexdigest()
         )
         return os.path.join(db_dir, file_name)

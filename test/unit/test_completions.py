@@ -141,7 +141,7 @@ class TestCompletions(unittest.TestCase):
         kw_tuple = get_kw_completion_list(self.test_a_index, prefix,
                                           RF_CELL, object_name, False)
         for completion in kw_tuple:
-            self.assertRegexpMatches(completion[0], object_name)
+            self.assertRegex(completion[0], object_name)
 
     def test_kw_create_completion_item(self):
         # kw with args
@@ -156,7 +156,7 @@ class TestCompletions(unittest.TestCase):
         self.assertEqual(completion, expected)
         # kw not args
         kw = 'Unselect Frame'
-        lib = 'Selenium2Library'
+        lib = 'SeleniumLibrary'
         completion = create_kw_completion_item(kw, [], RF_CELL, lib, False)
         trigger = '{0}\t{1}'.format(kw, lib)
         expected = (trigger, kw)
@@ -175,7 +175,7 @@ class TestCompletions(unittest.TestCase):
         self.assertEqual(completion, expected)
         # kw not args
         kw = 'Unselect Frame'
-        lib = 'Selenium2Library'
+        lib = 'SeleniumLibrary'
         completion = create_kw_completion_item(kw, [], RF_CELL, lib, True)
         trigger = '{0}\t{1}'.format(kw, lib)
         expected = (trigger, kw)
