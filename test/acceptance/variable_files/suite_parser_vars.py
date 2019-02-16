@@ -1,5 +1,5 @@
 from os import path
-
+import glob
 
 def get_variables():
     root_dir = path.dirname(path.abspath(__file__))
@@ -14,6 +14,7 @@ def get_variables():
 
 def create_simple_var(resource_dir):
     result = {}
+    result['table_type'] = 'variable_file'
     result['file_name'] = 'simple_variable_file.py'
     result['file_path'] = path.join(resource_dir, result['file_name'])
     result['variables'] = ['${VARIABLE_FILE_1}', '${VARIABLE_FILE_2}']
@@ -22,6 +23,7 @@ def create_simple_var(resource_dir):
 
 def create_other_simple_var(resource_dir):
     result = {}
+    result['table_type'] = 'variable_file'
     result['file_name'] = 'other_simple_variable_file.py'
     result['file_path'] = path.join(resource_dir, result['file_name'])
     result['variables'] = ['${VARIABLE_FILE_1}', '${VARIABLE_FILE_2}']
@@ -30,7 +32,9 @@ def create_other_simple_var(resource_dir):
 
 def create_simple_test(resource_dir):
     result = {}
+    result['table_type'] = 'variable_file'
     result['file_name'] = 'simple_test.robot'
+    result['table_type'] = 'suite'
     result['file_path'] = path.join(resource_dir, result['file_name'])
     result['libraries'] = [
         {'library_name': 'SeleniumLibrary',
@@ -38,7 +42,7 @@ def create_simple_test(resource_dir):
          'library_arguments': ['timeout=5.0', 'implicit_wait=0.0'],
          'library_path': None}
     ]
-    result['resources'] = [path.join(resource_dir, 'simple_resrouce2.robot')]
+    result['resources'] = [path.join(resource_dir, 'simple_resource2.robot')]
     result['variable_files'] = [
         {path.join(resource_dir, 'simple_variable_file.py'):
             {'variable_file_arguments': ['arg11', 'arg22']}}
@@ -54,6 +58,7 @@ def create_simple_test(resource_dir):
 def create_simple_resource(resource_dir):
     result = {}
     result['file_name'] = 'simple_resource.robot'
+    result['table_type'] = 'resource_file'
     result['file_path'] = path.join(resource_dir, result['file_name'])
     lib_path = path.abspath(path.join(resource_dir, '..', 'FooBar.py'))
     result['libraries'] = [
@@ -70,7 +75,7 @@ def create_simple_resource(resource_dir):
         {path.join(resource_dir, 'simple_variable_file.py'):
             {'variable_file_arguments': ['arg11', 'arg22']}}
         ]
-    result['resources'] = [path.join(resource_dir, 'simple_resrouce2.robot')]
+    result['resources'] = [path.join(resource_dir, 'simple_resource2.robot')]
     kws = {}
     kws['my_kw_1'] = my_kw_1()
     kws['my_kw_2'] = my_kw_2()
@@ -80,8 +85,7 @@ def create_simple_resource(resource_dir):
 
 
 def get_resource_path(root_dir):
-    return path.normcase(
-        path.normpath(
+    return path.normpath(
             path.join(
                 root_dir,
                 '..',
@@ -89,7 +93,6 @@ def get_resource_path(root_dir):
                 'resource',
                 'test_data'
             )
-        )
     )
 
 

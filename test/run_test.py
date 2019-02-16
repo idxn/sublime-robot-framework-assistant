@@ -4,6 +4,7 @@ import sys
 import unittest
 import shutil
 from robot import run as robot_run
+import os
 
 
 def acceptance_test(options):
@@ -37,7 +38,7 @@ def _acceptance_include(options):
 def clean_results():
     print('Clean: {0}'.format(env.RESULTS_DIR))
     if os.path.exists(env.RESULTS_DIR):
-        shutil.rmtree(env.RESULTS_DIR)
+            shutil.rmtree(env.RESULTS_DIR)
     os.mkdir(env.RESULTS_DIR)
 
 
@@ -48,7 +49,7 @@ def unit_test():
     sys.path.insert(0, env.SRC_DIR)
     sys.path.append(env.UNIT_TEST_DIR)
     # suite = unittest.TestLoader().loadTestsFromName(
-    #     'test_current_view.TestIndexing.test_create_view')
+    #     'test_scanner.TestScanner.test_queue_populated')
     suite = unittest.TestLoader().discover(
         start_dir=env.UNIT_TEST_DIR,
         pattern='test*.py')
@@ -72,10 +73,8 @@ if __name__ == '__main__':
     a_result = acceptance_test(sys.argv[1:])
     if u_result.errors or u_result.failures:
         print('Unit tests failed')
-        print('errors: {}'.format(u_result.errors), 
-            file=open(os.path.join(env.RESULTS_DIR,"unittest_erros.log"), "a"))
-        print('failures: {}'.format(u_result.failures), 
-            file=open(os.path.join(env.RESULTS_DIR,"unittest_failures.log"), "a"))
+        print('errors: {}'.format(u_result.errors))
+        print('failures: {}'.format(u_result.failures))
         _exit(u_result.errors)
     elif a_result != 0:
         print('Acceptance tests failed')

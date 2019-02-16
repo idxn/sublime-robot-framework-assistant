@@ -83,7 +83,7 @@ class TestScanner(unittest.TestCase):
             'resource2',
             'real_suite_resource.robot'
         )
-        key = os.path.normcase(key)
+        key = os.path.normpath(key)
         self.assertEqual(
             self.scanner.queue.queue[key],
             {'scanned': True, 'type': None, 'args': None}
@@ -225,14 +225,14 @@ class TestScanner(unittest.TestCase):
         init = '{0}-{1}.json'.format(
             '__init__.robot',
             hashlib.md5(
-                os.path.normcase(
+                os.path.normpath(
                     os.path.join(workspace, '__init__.robot')).encode()).hexdigest()
         )
         self.assertTrue(init in files)
         suite = '{0}-{1}.json'.format(
             'test_with_libs.robot',
             hashlib.md5(
-                os.path.normcase(
+                os.path.normpath(
                     os.path.join(
                         workspace, 'test_with_libs.robot')).encode()).hexdigest()
         )
@@ -324,7 +324,7 @@ class TestScanner(unittest.TestCase):
         resource = os.path.join(
             env.RESOURCES_DIR,
             'test_data',
-            'simple_resrouce2.robot'
+            'simple_resource2.robot'
         )
         return (resource, {'scanned': False, 'type': 'resource', 'args': None})
 

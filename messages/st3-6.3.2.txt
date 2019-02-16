@@ -1,0 +1,2 @@
+Drop PY2 support
+Support new RBFW and SeleniumLibrary

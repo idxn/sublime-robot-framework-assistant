@@ -328,7 +328,7 @@ class TestIndexing(unittest.TestCase):
     @property
     def real_suite_table_name(self):
         return rf_table_name(
-            os.path.normcase(
+            os.path.normpath(
                 os.path.join(
                     self.real_suite_dir,
                     'test',
@@ -340,30 +340,30 @@ class TestIndexing(unittest.TestCase):
     @property
     def resource_b_table_name(self):
         return rf_table_name(
-            os.path.normcase(os.path.join(self.suite_dir, 'resource_b.robot'))
+            os.path.normpath(os.path.join(self.suite_dir, 'resource_b.robot'))
         )
 
     @property
     def common_table_name(self):
         return rf_table_name(
-            os.path.normcase(os.path.join(self.suite_dir, 'common.robot'))
+            os.path.normpath(os.path.join(self.suite_dir, 'common.robot'))
         )
 
     @property
     def test_a_table_name(self):
         return rf_table_name(
-            os.path.normcase(os.path.join(self.suite_dir, 'test_a.robot'))
+            os.path.normpath(os.path.join(self.suite_dir, 'test_a.robot'))
         )
 
     @property
     def test_b_table_name(self):
         return rf_table_name(
-            os.path.normcase(os.path.join(self.suite_dir, 'test_b.robot'))
+            os.path.normpath(os.path.join(self.suite_dir, 'test_b.robot'))
         )
 
     @property
     def resource_a_table_name(self):
-        return rf_table_name(os.path.normcase(
+        return rf_table_name(os.path.normpath(
             os.path.join(self.suite_dir, 'resource_a.robot'))
         )
 
@@ -715,7 +715,7 @@ class TestIndexing(unittest.TestCase):
     def get_kw_args(self, data):
         arg_list = []
         kws = data["keywords"]
-        for i in kws.keys():
+        for i in kws:
             args = kws[i]['keyword_arguments']
             for arg in args:
                 if '=' in arg:

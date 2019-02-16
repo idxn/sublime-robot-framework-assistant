@@ -51,7 +51,7 @@ class TestGetKeywordFromResource(unittest.TestCase):
     def test_return_file_and_patter(self):
         kw = 'Common Keyword 2'
         object_name = None
-        expected_path = path.normcase(self.get_common_robot_path)
+        expected_path = path.normpath(self.get_common_robot_path)
         regex, file_path = self._get_kw.return_file_and_patter(object_name, kw)
         self.assertEqual(regex, self.get_common_keyword_2_regex)
         self.assertEqual(file_path, expected_path)
@@ -166,19 +166,19 @@ class TestGetKeywordFromResource(unittest.TestCase):
 
     @property
     def test_a_file(self):
-        return path.normcase(path.join(self.suite_dir, 'test_a.robot'))
+        return path.normpath(path.join(self.suite_dir, 'test_a.robot'))
 
     @property
     def resource_a_table_file(self):
-        return path.normcase(path.join(self.suite_dir, 'resource_a.robot'))
+        return path.normpath(path.join(self.suite_dir, 'resource_a.robot'))
 
     @property
     def test_b_file(self):
-        return path.normcase(path.join(self.suite_dir, 'test_b.robot'))
+        return path.normpath(path.join(self.suite_dir, 'test_b.robot'))
 
     @property
     def resource_b_table_file(self):
-        return path.normcase(path.join(self.suite_dir, 'resource_b.robot'))
+        return path.normpath(path.join(self.suite_dir, 'resource_b.robot'))
 
     @property
     def test_a_table_name(self):

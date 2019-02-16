@@ -1,8 +1,16 @@
 language: python
-python:
-  - "2.7"
+matrix:
+  include:
+    - python: "3.6"
+      env:
+        - INTERPRETER=python3
+    - python: "3.4"
+      env:
+        - INTERPRETER=python3
+
 install:
-  - pip install robotframework
+  - pip install robotframework==3.1.1
   - pip install robotframework-seleniumlibrary==3.3.1
 script:
-- "python test/run_test.py"
+  - "$INTERPRETER --version"
+  - "$INTERPRETER test/run_test.py"

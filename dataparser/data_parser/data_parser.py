@@ -46,7 +46,9 @@ class DataParser():
                 model = parsing.TestDataDirectory(source=folder).populate()
             else:
                 model = parsing.ResourceFile(file_path).populate()
-            return self._parse_robot_data(file_path, model)
+            data =  self._parse_robot_data(file_path, model)
+            data[DBJsonSetting.table_type] = DBJsonSetting.resource_file
+            return data
         else:
             logging.error('File %s could not be found', file_path)
             raise ValueError(
@@ -56,7 +58,9 @@ class DataParser():
         self.file_path = file_path
         if path.exists(file_path):
             model = parsing.TestCaseFile(source=file_path).populate()
-            return self._parse_robot_data(file_path, model)
+            data = self._parse_robot_data(file_path, model)
+            data[DBJsonSetting.table_type] = DBJsonSetting.suite
+            return data
         else:
             logging.error('File %s could not be found', file_path)
             raise ValueError(
@@ -78,6 +82,7 @@ class DataParser():
         for variable in variables:
             var_list.append(variable[0])
         data[DBJsonSetting.variables] = sorted(var_list)
+        data[DBJsonSetting.table_type] = DBJsonSetting.variable_file
         return data
 
     def parse_library(self, library, args=None):
@@ -116,6 +121,7 @@ class DataParser():
         if data[DBJsonSetting.keywords] is None:
             raise ValueError('Library did not contain keywords')
         else:
+            data[DBJsonSetting.table_type] = DBJsonSetting.library
             return data
 
     def register_console_logger(self):
@@ -140,8 +146,10 @@ class DataParser():
         else:
             import_name = library
         importer = Importer('test library')
+        lib_args = self._argument_strip(lib, args)
         libcode = importer.import_class_or_module(
-            import_name, return_source=False)
+            import_name, instantiate_with_args=lib_args,
+            return_source=False)
         kw_with_deco = self._get_keywords_with_robot_name(libcode)
         for keyword in lib.keywords:
             kw = {}
@@ -155,25 +163,41 @@ class DataParser():
                 function_name = keyword.name
             kw[DBJsonSetting.keyword_file] = self._get_library_kw_source(
                 libcode, function_name)
+            # if 'selenium' in str(libcode).lower():
+            #     import pdb; pdb.set_trace()  # breakpoint 402cb44b //
             kws[strip_and_lower(keyword.name)] = kw
         return kws
 
-    def _get_keywords_with_robot_name(self, libcode):
+    def _argument_strip(self, lib, given_args):
+        formated_args = []
+        if not given_args:
+            return formated_args
+        try:
+            default_args = lib.inits[0].args
+        except IndexError:
+            default_args = []
+        for default_arg in default_args:
+            if '=' in default_arg:
+                default_parts = default_arg.split('=', 1)
+                formated_args.append(default_parts[1])
+            else:
+                formated_args.append(default_arg)
+        return formated_args
+
+    def _get_keywords_with_robot_name(self, lib_instance):
         """Returns keywords which uses Robot keyword decorator with robot_name
 
-        The keyword name can be chaned with Robot Framework keyword decorator
-        and by using the robot_name attribute. Return dictinionary which key is
-        the value of the robot_name attribute and the orinal function name.
+        The keyword name can be changed with Robot Framework keyword decorator
+        and by using the robot_name attribute. Return dictionary which key is
+        the value of the robot_name attribute and the original function name.
         """
         kw_deco = {}
-        for key in libcode.__dict__:
-            if callable(libcode.__dict__[key]):
-                try:
-                    if 'robot_name' in libcode.__dict__[key].__dict__:
-                        kw = libcode.__dict__[key].__dict__['robot_name']
-                        kw_deco[kw] = key
-                except AttributeError:
-                    pass
+        lib_class = type(lib_instance)
+        for name in dir(lib_instance):
+            owner = lib_class if hasattr(lib_class, name) else lib_instance
+            method_attrib = getattr(owner, name)
+            if hasattr(method_attrib, 'robot_name') and method_attrib.robot_name:
+                kw_deco[method_attrib.robot_name] = name
         return kw_deco
 
     def _get_library_kw_source(self, libcode, keyword):
@@ -182,12 +206,15 @@ class DataParser():
         func_file = None
         if hasattr(libcode, kw_func):
             func = getattr(libcode, kw_func)
+        else:
+            func_file, func = None, None
         if func:
-            kw_class = self.get_class_that_defined_method(func)
-            if kw_class:
-                func_file = self.get_function_file(kw_class)
-            else:
-                func_file = self.get_function_file(func)
+            # kw_class = self.get_class_that_defined_method(func)
+            # if kw_class:
+            #     func_file = self.get_function_file(kw_class)
+            # else:
+            #     func_file = self.get_function_file(func)
+            return func.__code__.co_filename
         return func_file
 
     def get_class_that_defined_method(self, meth):

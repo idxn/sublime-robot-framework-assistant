@@ -175,7 +175,7 @@ class Index(object):
             result += self.get_library_imports(data)
         if DBJsonSetting.variable_files in data:
             for var in data[DBJsonSetting.variable_files]:
-                result.append(rf_table_name(list(var.keys())[0]))
+                result.append(rf_table_name(list(var)[0]))
         if DBJsonSetting.resources in data:
             for resource in data[DBJsonSetting.resources]:
                 result.append(rf_table_name(resource))

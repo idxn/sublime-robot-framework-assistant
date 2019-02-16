@@ -55,7 +55,6 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
             'Simulate Event'
         )
         self.assertIsNotNone(regex)
-        import pdb; pdb.set_trace()  # breakpoint d4f66d13 //
         self.assertIsNotNone(file_path)
 
     def test_get_lib_keyword_file(self):
@@ -170,15 +169,15 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
 
     @property
     def s2l_simulate(self):
-        return path.join(self.s2l, 'keywords', '_element.py')
+        return path.join(self.s2l, 'keywords', 'element.py')
 
     @property
     def s2l_press_key(self):
-        return path.join(self.s2l, 'keywords', '_element.py')
+        return path.join(self.s2l, 'keywords', 'element.py')
 
     @property
     def s2l_textarea_value_should_be(self):
-        return path.join(self.s2l, 'keywords', '_formelement.py')
+        return path.join(self.s2l, 'keywords', 'formelement.py')
 
     @property
     def s2l_table_file(self):
@@ -198,7 +197,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
     @property
     def long_name_file(self):
         return path.join(
-            path.normcase(self.suite_dir), 'LibraryWithReallyTooLongName.py'
+            path.normpath(self.suite_dir), 'LibraryWithReallyTooLongName.py'
         )
 
     @property
@@ -208,7 +207,7 @@ class TestGetKeywordFromLibrary(unittest.TestCase):
     @property
     def get_resource_lib_longer_than_100_chars(self):
         return path.join(
-            path.normcase(self.suite_dir),
+            path.normpath(self.suite_dir),
             (
                 'LibraryNameWhichIsLongerThan100CharactersButItSeemsThatIt'
                 'RequiresQuiteAlotLettersInTheFileNameAndIsNotGoodReal'

@@ -5,6 +5,8 @@ Robot Framework Assistant provides IDE features to edit
 [Robot Framework](http://robotframework.org/) test data in the
 [Sublime Text 3](https://www.sublimetext.com/3).
 
+> **FROM v6.3.2 ONWARDS, THIS PLUGIN WILL DROP PY2 SUPPORT DUE TO PY2 END OF LIFE IN THE EARLY OF 2020**
+
 From release 3.0.0 onwards plugin is not anymore compatible with
 Sublime Text 2. The releases made before the 3.0.0 will serve
 the Sublime Text 2 users. The documentation for Sublime Text 2 user
@@ -37,7 +39,7 @@ The default settings can be found from the **Preferences | Package settings**
 The only mandatory settings which user needs to define are the
 [robot_framework_workspace](https://github.com/andriyko/sublime-robot-framework-assistant#robot_framework_workspace)
 and the
-[path_to_python](https://github.com/andriyko/sublime-robot-framework-assistant#path_to_python).
+[path_to_python3](https://github.com/andriyko/sublime-robot-framework-assistant#path_to_python3).
 The rest of the parameters can be safely left in their default values,
 when trying out the plugin.
 
@@ -71,13 +73,13 @@ definition in this plugin is not affected by this option.
 If there library or variable file imports in the Robot Framework data,
 those imports are automatically parser and included in the scanning.
 
-## path_to_python
+## path_to_python3
 In order the creating the database of keywords and variables to
-work, path to Python binary must be defined. It must be the same
+work, path to Python3.x binary must be defined. It must be the same
 Python binary where the Robot Framework is installed.
 
-In Linux like environments this could be like: /usr/bin/python
-and in Windows this could be like: C:\\Python27\\python.exe
+In Linux like environments this could be like: /usr/bin/python3
+and in Windows this could be like: C:\\Python3\\python3.exe
 
 ## robot_framework_module_search_path
 Module search path defines a list of paths where the Robot Framework

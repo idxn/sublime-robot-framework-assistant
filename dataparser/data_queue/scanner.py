@@ -40,11 +40,9 @@ class Scanner(object):
         if not os.path.dirname(workspace):
             raise EnvironmentError(
                 'Workspace must be folder: {0}'.format(str(workspace)))
-        if not os.path.exists(db_path):
-            os.makedirs(db_path)
-        else:
+        if os.path.exists(db_path):
             shutil.rmtree(db_path)
-            os.makedirs(db_path)
+        os.makedirs(db_path)
         self.add_builtin()
         if self.xml_libraries:
             self.add_xml_libraries(self.xml_libraries)
@@ -113,6 +111,8 @@ class Scanner(object):
         if data_type in self.rf_data_type:
             return self.scan_rf_data(item[0])
         elif data_type == DBJsonSetting.library:
+            # if 'selenium' in item[0].lower():
+            #     import pdb; pdb.set_trace()  # breakpoint a2b04478 //
             return self.parser.parse_library(item[0], item[1]['args'])
         elif data_type == DBJsonSetting.variable_file:
             return self.parser.parse_variable_file(item[0], item[1]['args'])
@@ -146,7 +146,7 @@ class Scanner(object):
 
     def add_var_files_queue(self, var_files):
         for var_file in var_files:
-            file_name = list(var_file.keys())[0]
+            file_name = list(var_file)[0]
             self.queue.add(
                 file_name,
                 'variable_file',
