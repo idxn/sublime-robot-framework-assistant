@@ -163,8 +163,6 @@ class DataParser():
                 function_name = keyword.name
             kw[DBJsonSetting.keyword_file] = self._get_library_kw_source(
                 libcode, function_name)
-            # if 'selenium' in str(libcode).lower():
-            #     import pdb; pdb.set_trace()  # breakpoint 402cb44b //
             kws[strip_and_lower(keyword.name)] = kw
         return kws
 
@@ -209,11 +207,6 @@ class DataParser():
         else:
             func_file, func = None, None
         if func:
-            # kw_class = self.get_class_that_defined_method(func)
-            # if kw_class:
-            #     func_file = self.get_function_file(kw_class)
-            # else:
-            #     func_file = self.get_function_file(func)
             return func.__code__.co_filename
         return func_file
 

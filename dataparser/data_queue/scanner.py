@@ -111,8 +111,6 @@ class Scanner(object):
         if data_type in self.rf_data_type:
             return self.scan_rf_data(item[0])
         elif data_type == DBJsonSetting.library:
-            # if 'selenium' in item[0].lower():
-            #     import pdb; pdb.set_trace()  # breakpoint a2b04478 //
             return self.parser.parse_library(item[0], item[1]['args'])
         elif data_type == DBJsonSetting.variable_file:
             return self.parser.parse_variable_file(item[0], item[1]['args'])

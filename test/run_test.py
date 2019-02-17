@@ -4,7 +4,6 @@ import sys
 import unittest
 import shutil
 from robot import run as robot_run
-import os
 
 
 def acceptance_test(options):
