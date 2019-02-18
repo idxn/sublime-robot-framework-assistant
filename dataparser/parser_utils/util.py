@@ -1,5 +1,4 @@
 from os import path
-import glob
 
 def normalise_path(f_path):
     dirname = path.abspath(path.dirname(f_path))

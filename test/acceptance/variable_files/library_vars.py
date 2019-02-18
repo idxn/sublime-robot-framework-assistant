@@ -3,7 +3,6 @@ from suite_parser_vars import get_resource_path
 import copy
 import inspect
 import robot.libraries.Screenshot
-import glob
 
 def get_variables():
     root_dir = path.dirname(path.abspath(__file__))

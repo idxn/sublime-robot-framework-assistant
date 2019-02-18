@@ -1,5 +1,4 @@
 from os import path
-import glob
 
 def get_variables():
     root_dir = path.dirname(path.abspath(__file__))
