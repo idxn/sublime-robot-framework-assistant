@@ -3,6 +3,7 @@ import sublime
 import subprocess
 from platform import system
 from os import path, makedirs
+from . import check_binary_version
 from ..setting.setting import get_setting
 from ..setting.setting import SettingObject
 from .scan import scan_popen_arg_parser
@@ -16,6 +17,7 @@ class ScanOpenTabCommand(sublime_plugin.TextCommand):
         Purpose of the command is scan and create the db table
         from the currently open tab.
         """
+        check_binary_version(get_setting(SettingObject.python_binary))
         log_file = get_setting(SettingObject.log_file)
         makedirs(path.dirname(log_file), exist_ok=True)
         open_tab = self.view.file_name()

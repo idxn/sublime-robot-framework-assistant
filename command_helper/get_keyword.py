@@ -161,8 +161,5 @@ class GetKeyword(object):
             return None
 
     def is_string(self, str_):
-        if version_info.major > 2:
-            status = isinstance(str_, str)
-        else:
-            raise RuntimeError('Plugin only works with python 3')
-        return status
+        return isinstance(str_, str)
+ 

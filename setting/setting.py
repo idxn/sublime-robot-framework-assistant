@@ -51,7 +51,7 @@ class SettingObject(object):
     scanner_runner = 'scanner_runner'
     index_runner = 'index_runner'
     log_file = 'log_file'
-    python_binary = 'path_to_python3'
+    python_binary = 'path_to_python'
     workspace = 'robot_framework_workspace'
     extension = 'robot_framework_extension'
     builtin_variables = 'robot_framework_builtin_variables'
