@@ -5,7 +5,6 @@ from platform import system
 from os import path, makedirs
 from hashlib import md5
 import json
-from . import check_binary_version
 from ..setting.setting import get_setting
 from ..setting.setting import SettingObject
 from ..setting.db_json_settings import DBJsonSetting
@@ -46,7 +45,6 @@ def add_builtin_vars(db_path):
 class ScanIndexCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        check_binary_version(get_setting(SettingObject.python_binary))
         log_file = get_setting(SettingObject.log_file)
         db_dir = get_setting(SettingObject.table_dir)
         makedirs(path.dirname(log_file), exist_ok=True)

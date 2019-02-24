@@ -3,7 +3,6 @@ import sublime
 import subprocess
 from platform import system
 from os import path, makedirs
-from . import check_binary_version
 from ..setting.setting import get_setting
 from ..setting.setting import SettingObject
 
@@ -35,7 +34,6 @@ class ScanCommand(sublime_plugin.TextCommand):
         Also all imports, from found files, will be iterated and
         table is created also from imports.
         """
-        check_binary_version(get_setting(SettingObject.python_binary))
         log_file = get_setting(SettingObject.log_file)
         makedirs(path.dirname(log_file), exist_ok=True)
         file_ = open(log_file, 'a')

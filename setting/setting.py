@@ -1,5 +1,7 @@
+import subprocess
 from os import path
 import sublime
+from sublime import error_message
 
 
 class PathResolver(object):
@@ -99,6 +101,18 @@ def get_view_path():
         return path.join(project_setting, PathResolver().view_folder)
 
 
+def get_python_binary():
+    python_binary = get_sublime_setting(SettingObject.python_binary)
+    result = subprocess.check_output(
+        [python_binary, "-c", "import sys;print(sys.version_info.major)"])
+    version = int(result.decode('utf-8').strip())
+    if version < 3:
+        error_message('RobotFrameworkAssistant\n' +
+                      '***********************************\n' +
+                      'Plugin fully support on python 3\n')
+    return python_binary
+
+
 def get_setting(setting):
     if setting.lower() == SettingObject.table_dir:
         return get_scanner_dir()
@@ -110,6 +124,8 @@ def get_setting(setting):
         return PathResolver().index_runner
     elif setting.lower() == SettingObject.log_file:
         return get_log_file()
+    elif setting.lower() == SettingObject.python_binary:
+        return get_python_binary()
     else:
         return get_sublime_setting(setting)
 
