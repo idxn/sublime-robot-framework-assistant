@@ -119,7 +119,7 @@ class Scanner(object):
                 item))
 
     def scan_rf_data(self, f):
-        """Scans test suite or resoruce file"""
+        """Scans test suite or resource file"""
         self.parser.unregister_console_logger()
         try:
             return self.parser.parse_resource(f)

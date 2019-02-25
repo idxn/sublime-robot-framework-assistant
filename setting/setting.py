@@ -47,6 +47,7 @@ class PathResolver(object):
 
 
 class SettingObject(object):
+    __instance = None
 
     table_dir = 'table_dir'
     index_dir = 'index_dir'
@@ -67,6 +68,13 @@ class SettingObject(object):
     automatic_index_creation = 'robot_framework_automatic_indexing'
     automatic_database_update = 'robot_framework_automatic_database_update'
     kw_prefixes = 'robot_framework_keyword_prefixes'
+    PY3 = None
+
+    def __new__(cls, val):
+        if SettingObject.__instance is None:
+            SettingObject.__instance = object.__new__(cls)
+        SettingObject.__instance.val = val
+        return SettingObject.__instance
 
 
 def get_scanner_dir():
@@ -102,14 +110,21 @@ def get_view_path():
 
 
 def get_python_binary():
+    error_msg = 'RobotFrameworkAssistant\n' + \
+        '***********************************\n' + \
+        'The plugin is fully supported on python 3\n'
     python_binary = get_sublime_setting(SettingObject.python_binary)
-    result = subprocess.check_output(
-        [python_binary, "-c", "import sys;print(sys.version_info.major)"])
-    version = int(result.decode('utf-8').strip())
-    if version < 3:
-        error_message('RobotFrameworkAssistant\n' +
-                      '***********************************\n' +
-                      'Plugin fully support on python 3\n')
+    if SettingObject.PY3 is None:
+        result = subprocess.check_output(
+            [python_binary, "-c", "import sys;print(sys.version_info.major)"])
+        version = int(result.decode('utf-8').strip())
+        if version < 3:
+            error_message(error_msg)
+            SettingObject.PY3 = False
+        else:
+            SettingObject.PY3 = True
+    elif not SettingObject.PY3:
+        error_message(error_msg)
     return python_binary
 
 
